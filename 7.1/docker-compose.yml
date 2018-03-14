@@ -1,5 +1,5 @@
 web:
-    image: lcsbaroni/magento:2.1
+    image: lcsbaroni/docker-php:7.1
     ports:
         - "80"
         - "443"
