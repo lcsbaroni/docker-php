@@ -99,6 +99,19 @@ RUN sed -i "s|;date.timezone =.*|date.timezone = ${TIMEZONE}|" /etc/php7/php.ini
     rm -fr /tmp/*.apk && \
     rm -rf /var/cache/apk/*
 
+RUN export NEWRELIC_VERSION="$(curl -sS https://download.newrelic.com/php_agent/release/ | sed -n 's/.*>\(.*linux-musl\).tar.gz<.*/\1/p')" \
+    && curl -sS "https://download.newrelic.com/php_agent/release/${NEWRELIC_VERSION}.tar.gz" | gzip -dc | tar xf - \
+    && cd "${NEWRELIC_VERSION}" \
+    && NR_INSTALL_SILENT=true ./newrelic-install install \
+    && cd .. \
+    && unset NEWRELIC_VERSION \
+    && sed -i \
+        -e "s/;\?newrelic.enabled =.*/newrelic.enabled = \${NEW_RELIC_ENABLED}/" \
+        -e "s/newrelic.license =.*/newrelic.license = \${NEW_RELIC_LICENSE_KEY}/" \
+        -e "s/;\?newrelic.framework =.*/newrelic.framework = \${NEW_RELIC_FRAMEWORK}/" \
+        -e "s/newrelic.appname =.*/newrelic.appname = \${NEW_RELIC_APP_NAME}/" \
+        /etc/php7/conf.d/newrelic.ini
+
 ADD ./conf/nginx.conf /etc/nginx/nginx.conf
 ADD ./conf/default.conf /etc/nginx/sites-enabled/default
 ADD ./conf/php-fpm.conf /etc/php7/php-fpm.conf
