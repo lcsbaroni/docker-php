@@ -68,8 +68,8 @@ RUN sed -i "s|;date.timezone =.*|date.timezone = ${TIMEZONE}|" /etc/php7/php.ini
     sed -i "s|realpath_cache_ttl =.*|realpath_cache_ttl = 7200|" /etc/php7/php.ini && \
     sed -i "s|output_buffering =.*|output_buffering = 4096|" /etc/php7/php.ini && \
     echo "opcache.enable = 1" >> /etc/php7/conf.d/00_opcache.ini && \
-    echo "opcache.validate_timestamps=${OPCACHE_VALIDATE_TIMESTAMPS}" >> /etc/php7/conf.d/00_opcache.ini && \
-    echo "opcache.revalidate_freq = 0" >> /etc/php7/conf.d/00_opcache.ini && \
+    echo "opcache.validate_timestamps=\${OPCACHE_VALIDATE_TIMESTAMPS}" >> /etc/php7/conf.d/00_opcache.ini && \
+    echo "opcache.revalidate_freq=\${OPCACHE_REVALIDATE_FREQ}" >> /etc/php7/conf.d/00_opcache.ini && \
     echo "opcache.memory_consumption = 512" >> /etc/php7/conf.d/00_opcache.ini && \
     echo "opcache.max_accelerated_files = 7963" >> /etc/php7/conf.d/00_opcache.ini && \
     echo "opcache.max_wasted_percentage = 10" >> /etc/php7/conf.d/00_opcache.ini && \
@@ -78,7 +78,7 @@ RUN sed -i "s|;date.timezone =.*|date.timezone = ${TIMEZONE}|" /etc/php7/php.ini
     echo "opcache.enable_file_override=1" >> /etc/php7/conf.d/00_opcache.ini && \
     sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php7/php.ini && \
     echo "zend_extension=xdebug.so" >> /etc/php7/conf.d/xdebug.ini && \
-    echo "xdebug.remote_enable=${XDEBUG_ENABLE}" >> /etc/php7/conf.d/xdebug.ini && \
+    echo "xdebug.remote_enable=\${XDEBUG_ENABLE}" >> /etc/php7/conf.d/xdebug.ini && \
     echo "xdebug.remote_handler=dbgp" >> /etc/php7/conf.d/xdebug.ini && \
     echo "xdebug.remote_mode=req" >> /etc/php7/conf.d/xdebug.ini && \
     echo "xdebug.remote_port=9001" >> /etc/php7/conf.d/xdebug.ini && \
