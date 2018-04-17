@@ -111,7 +111,10 @@ RUN export NEWRELIC_VERSION="$(curl -sS https://download.newrelic.com/php_agent/
         -e "s/newrelic.license =.*/newrelic.license = \${NEW_RELIC_LICENSE_KEY}/" \
         -e "s/;\?newrelic.framework =.*/newrelic.framework = \${NEW_RELIC_FRAMEWORK}/" \
         -e "s/newrelic.appname =.*/newrelic.appname = \${NEW_RELIC_APP_NAME}/" \
-        /etc/php7/conf.d/newrelic.ini
+        /etc/php7/conf.d/newrelic.ini \
+    # forward request and error logs to docker log collector
+    && ln -sf /dev/stdout /var/log/appstdout.log \
+    && ln -sf /dev/stderr /var/log/appstderr.log
 
 ADD ./conf/nginx.conf /etc/nginx/nginx.conf
 ADD ./conf/default.conf /etc/nginx/sites-enabled/default
