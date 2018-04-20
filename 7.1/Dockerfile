@@ -50,6 +50,7 @@ RUN apk update && \
         php7-xsl \
         php7-xml \
         php7-xmlwriter \
+        php7-simplexml \
         php7-xdebug \
         php7-zlib \
         php7-openssl \
