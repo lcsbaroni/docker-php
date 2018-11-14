@@ -120,7 +120,7 @@ WORKDIR /www
 # Expose ports
 EXPOSE 9000
 
-CMD ["/home/docker/run.sh"]
-# ENV LOG_STREAM="/tmp/stdout"
-# RUN mkfifo $LOG_STREAM && chmod 777 $LOG_STREAM
-# CMD ["/bin/sh", "-c", "php-fpm -D | tail -f $LOG_STREAM"]
+ENV LOG_STREAM="/tmp/stdout"
+RUN mkfifo $LOG_STREAM && chmod 777 $LOG_STREAM
+
+CMD ["/bin/sh", "-c", "/home/docker/run.sh | tail -f $LOG_STREAM"]
