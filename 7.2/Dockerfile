@@ -10,6 +10,7 @@ ENV PHP_MAX_FILE_UPLOAD 200
 ENV PHP_MAX_POST 100M
 
 ADD ./conf/php7.runit /etc/service/php7/run
+ADD ./conf/crond.runit /etc/service/crond/run
 
 RUN apk update && \
     apk upgrade && \
@@ -91,6 +92,7 @@ RUN sed -i "s|;date.timezone =.*|date.timezone = ${TIMEZONE}|" /etc/php7/php.ini
     chown -R docker:docker /home/docker && \
     mkdir -p /etc/service && \
     chmod a+x /etc/service/php7/run && \
+    chmod a+x /etc/service/crond/run && \
     mkdir /www && \
     chown -R docker:docker /www && \
     apk del tzdata && \
@@ -112,6 +114,8 @@ RUN export NEWRELIC_VERSION="$(curl -sS https://download.newrelic.com/php_agent/
 
 ADD ./conf/php-fpm.conf /etc/php7/php-fpm.conf
 ADD ./conf/www.conf /etc/php7/php-fpm.d/www.conf
+ADD ./conf/cron /etc/crontabs/docker
+
 ADD ./run.sh /home/docker/run.sh
 
 # Set Workdir
