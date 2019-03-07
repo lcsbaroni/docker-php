@@ -54,6 +54,7 @@ RUN apk update && \
         php7-xdebug \
         php7-zlib \
         php7-openssl \
+        php7-fileinfo \
         php7-zip
 
 RUN sed -i "s|;date.timezone =.*|date.timezone = ${TIMEZONE}|" /etc/php7/php.ini && \
