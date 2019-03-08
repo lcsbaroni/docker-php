@@ -53,6 +53,7 @@ RUN apk update && \
         php7-xdebug \
         php7-zlib \
         php7-openssl \
+        php7-fileinfo \
         php7-zip
 
 RUN sed -i "s|;date.timezone =.*|date.timezone = ${TIMEZONE}|" /etc/php7/php.ini && \
@@ -122,7 +123,7 @@ ADD ./run.sh /home/docker/run.sh
 WORKDIR /www
 
 # Expose ports
-EXPOSE 9000
+EXPOSE 9000 80 443
 
 ENV LOG_STREAM="/tmp/stdout"
 RUN mkfifo $LOG_STREAM && chmod 777 $LOG_STREAM
