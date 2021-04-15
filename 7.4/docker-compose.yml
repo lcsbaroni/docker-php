@@ -1,0 +1,7 @@
+web:
+    image: lcsbaroni/docker-php:7.4
+    ports:
+        - "80"
+        - "443"
+    volumes:
+        - ./site:/app
