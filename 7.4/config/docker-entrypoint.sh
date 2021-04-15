@@ -5,7 +5,7 @@ set -e
 NEWRELIC_INI=/usr/local/etc/php/conf.d/newrelic.ini
 if [ -f "$NEWRELIC_INI" ]; then
     sed -i \
-        -e "s/newrelic.license =.*/newrelic.license = \"${PICPAY_NEWRELIC_LICENSE_KEY}\"/" \
+        -e "s/newrelic.license =.*/newrelic.license = \"${NEWRELIC_LICENSE_KEY}\"/" \
         -e "s/newrelic.appname =.*/newrelic.appname = \"${NEW_RELIC_APP_NAME}\"/" \
         $NEWRELIC_INI
 

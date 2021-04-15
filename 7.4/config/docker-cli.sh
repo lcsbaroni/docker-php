@@ -5,7 +5,7 @@ set -e
 NEWRELIC_INI=/usr/local/etc/php/conf.d/newrelic.ini
 
 sed -i \
-    -e "s/newrelic.license =.*/newrelic.license = \"${PICPAY_NEWRELIC_LICENSE_KEY}\"/" \
+    -e "s/newrelic.license =.*/newrelic.license = \"${NEWRELIC_LICENSE_KEY}\"/" \
     -e "s/newrelic.appname =.*/newrelic.appname = \"${NEW_RELIC_APP_NAME}\"/" \
     $NEWRELIC_INI;
 sed -i "s|;newrelic.daemon.app_timeout.*|newrelic.daemon.app_timeout = 12h|" $NEWRELIC_INI
